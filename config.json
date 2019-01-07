@@ -1,0 +1,54 @@
+{
+	"PACSAETitle": "WFMLIMA1",
+	"PACSIP": "172.16.104.110",
+	"PACSPort": "104",
+	"ENTITYAETitle": "MOVEDCM",
+	"ENTITYIP": "172.16.104.72",
+	"ENTITYPort": "11112",
+	"BackUpTitle": "DCM4CHEE",
+	"NroTag": "00080050",
+	"DateStart": "20181010",
+	"DateEnd": "20181011",
+	"Monday": {
+		"StartHour": 3,
+		"StartMinutes": 0,
+		"EndHour": 6,
+		"EndMinutes": 0
+	},
+	"Tuesday": {
+			"StartHour": 3,
+			"StartMinutes": 0,
+			"EndHour": 6,
+			"EndMinutes": 0
+	},
+	"Wednesday": {
+			"StartHour": 3,
+			"StartMinutes": 0,
+			"EndHour": 6,
+			"EndMinutes": 0
+	},
+	"Thursday": {
+			"StartHour": 3,
+			"StartMinutes": 0,
+			"EndHour": 6,
+			"EndMinutes": 0
+	},
+	"Friday": {
+			"StartHour": 14,
+			"StartMinutes": 30,
+			"EndHour": 19,
+			"EndMinutes": 30
+	},
+	"Saturday": {
+			"StartHour": 3,
+			"StartMinutes": 0,
+			"EndHour": 6,
+			"EndMinutes": 0
+	},
+	"Sunday": {
+			"StartHour": 3,
+			"StartMinutes": 0,
+			"EndHour": 6,
+			"EndMinutes": 0
+	}
+}
