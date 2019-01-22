@@ -120,7 +120,7 @@ func harvestQuery(confFind ConfigJSON, ses *mgo.Session, str string) {
 	// Collection
 	c := session.DB(DATABASE).C(HPROCESS)
 	for i := 0; i < indLast; i++ {
-		//sleepFunc(confFind, str)
+		sleepFunc(confFind, str)
 		c.Find(bson.M{"id": i}).One(&datesEl)
 		inicioD := datesEl.DateBra
 		fmt.Println("Ver recoleccion de data", inicioD)

@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 
 	mgo "gopkg.in/mgo.v2"
@@ -55,6 +53,7 @@ func transferQuery(conf ConfigJSON, sess *mgo.Session, str string) {
 	logFunction("Transfer: The last  " + strconv.Itoa(initialI))
 
 	for i := initialI; i <= dbSize; i++ {
+		sleepFunc(conf, "Middle")
 		fromHarvest := Harvest{}
 		col.Find(bson.M{"id": strconv.Itoa(i)}).One(&fromHarvest)
 		Acc := fromHarvest.AccessionNumber
@@ -69,12 +68,12 @@ func transferQuery(conf ConfigJSON, sess *mgo.Session, str string) {
 			// Se puso a proposito
 			// fmt.Println("Start Sleep")
 			// time.Sleep(10 * time.Minute)
-			reader := bufio.NewReader(os.Stdin)
-			fmt.Print("Do you want to continue (Yes/No) (Y/N): ")
-			text, _ := reader.ReadString('\n')
-			if text == "N" {
-				return
-			}
+			// reader := bufio.NewReader(os.Stdin)
+			// fmt.Print("Do you want to continue (Yes/No) (Y/N): ")
+			// text, _ := reader.ReadString('\n')
+			// if text == "N" {
+			// 	return
+			// }
 
 			query = queryDCM(command)
 			fmt.Println(query)

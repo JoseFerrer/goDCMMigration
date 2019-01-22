@@ -96,7 +96,7 @@ func (o *ComQuery) getCommands(confFind ConfigJSON, value string) string {
 		flag, _ := strconv.Atoi(confFind.DateStart)
 		ConfOpt = ""
 		if flag != 0 {
-			ConfOpt = "-m " + o.Tag + "=" + o.iRange + "-" + o.oRange + " -L STUDY "
+			ConfOpt = "-m " + o.Tag + "=" + o.iRange + o.oRange + " -L STUDY "
 			strs := []string{StudyID, AccessionNum, PatientID, StudyDesc, Modality, NStudyRS, NStudyRI}
 			modOpt = strings.Join(strs, " ")
 		}

@@ -5,10 +5,10 @@
 	"ENTITYAETitle": "MOVEDCM",
 	"ENTITYIP": "172.16.104.72",
 	"ENTITYPort": "11112",
-	"BackUpTitle": "DCM4CHEE",
+	"BackUpTitle": "VERBACKUP",
 	"NroTag": "00080050",
-	"DateStart": "20181010",
-	"DateEnd": "20181011",
+	"DateStart": "20181101",
+	"DateEnd": "20181103",
 	"Monday": {
 		"StartHour": 3,
 		"StartMinutes": 0,
@@ -34,10 +34,10 @@
 			"EndMinutes": 0
 	},
 	"Friday": {
-			"StartHour": 14,
-			"StartMinutes": 30,
-			"EndHour": 19,
-			"EndMinutes": 30
+			"StartHour": 3,
+			"StartMinutes": 0,
+			"EndHour": 6,
+			"EndMinutes": 0
 	},
 	"Saturday": {
 			"StartHour": 3,

@@ -73,6 +73,7 @@ func sleepFunc(confFind ConfigJSON, stage string) {
 	var strnotification = ""
 
 	dInit := confFind.getDuration(stage)
+	fmt.Println(dInit.Minutes())
 	if dInit.Minutes() > 0 {
 		fmt.Printf("Sleep %f minutes before beginning the migration.\n", dInit.Minutes())
 		logFunction("Sleep: Sleep program.")
@@ -92,17 +93,20 @@ func sleepFunc(confFind ConfigJSON, stage string) {
 // Debe estar en el principal
 func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 	var (
-		mins         bool
-		hours        bool
-		startMin     int
-		startHour    int
-		endHour      int
-		endMinutes   int
-		nday         int
+		/* mins         bool
+		hours        bool */
+		startMin   int
+		startHour  int
+		endHour    int
+		endMinutes int
+		/* nday         int
 		compAMin     int
 		compAHour    int
 		compBMin     int
-		compBHour    int
+		compBHour    int */
+		eTime1       time.Duration
+		eTime2       time.Duration
+		eTime3       time.Duration
 		durationNext time.Duration
 	)
 
@@ -114,60 +118,144 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 		startMin = m.Monday.StartMinutes
 		endHour = m.Monday.EndHour
 		endMinutes = m.Monday.EndMinutes
-		dayin := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
-		dayout := time.Date(now.Year(), now.Month(), now.Day()+1, m.Tuesday.StartHour, m.Tuesday.StartMinutes, 0, 0, loc)
-		durationNext = dayout.Sub(dayin)
+		dayin := time.Date(now.Year(), now.Month(), now.Day(), startHour, startMin, 0, 0, loc)
+		dayout := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
+		nextDay := time.Date(now.Year(), now.Month(), now.Day()+1, m.Tuesday.StartHour, m.Tuesday.StartMinutes, 0, 0, loc)
+		eTime1 = dayin.Sub(now)
+		eTime2 = dayout.Sub(now)
+		eTime3 = nextDay.Sub(now)
+		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
+			durationNext = eTime3
+		}
 	case time.Tuesday:
 		startHour = m.Tuesday.StartHour
 		startMin = m.Tuesday.StartMinutes
 		endHour = m.Tuesday.EndHour
 		endMinutes = m.Tuesday.EndMinutes
-		dayin := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
-		dayout := time.Date(now.Year(), now.Month(), now.Day()+1, m.Wednesday.StartHour, m.Wednesday.StartMinutes, 0, 0, loc)
-		durationNext = dayout.Sub(dayin)
+		dayin := time.Date(now.Year(), now.Month(), now.Day(), startHour, startMin, 0, 0, loc)
+		dayout := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
+		nextDay := time.Date(now.Year(), now.Month(), now.Day()+1, m.Wednesday.StartHour, m.Wednesday.StartMinutes, 0, 0, loc)
+		eTime1 = dayin.Sub(now)
+		eTime2 = dayout.Sub(now)
+		eTime3 = nextDay.Sub(now)
+		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime2
+		}
+		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
+			durationNext = eTime3
+		}
 	case time.Wednesday:
 		startHour = m.Wednesday.StartHour
 		startMin = m.Wednesday.StartMinutes
 		endHour = m.Wednesday.EndHour
 		endMinutes = m.Wednesday.EndMinutes
-		dayin := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
-		dayout := time.Date(now.Year(), now.Month(), now.Day()+1, m.Thursday.StartHour, m.Thursday.StartMinutes, 0, 0, loc)
-		durationNext = dayout.Sub(dayin)
+		dayin := time.Date(now.Year(), now.Month(), now.Day(), startHour, startMin, 0, 0, loc)
+		dayout := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
+		nextDay := time.Date(now.Year(), now.Month(), now.Day()+1, m.Thursday.StartHour, m.Thursday.StartMinutes, 0, 0, loc)
+		eTime1 = dayin.Sub(now)
+		eTime2 = dayout.Sub(now)
+		eTime3 = nextDay.Sub(now)
+		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime2
+		}
+		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
+			durationNext = eTime3
+		}
 	case time.Thursday:
 		startHour = m.Thursday.StartHour
 		startMin = m.Thursday.StartMinutes
 		endHour = m.Thursday.EndHour
 		endMinutes = m.Thursday.EndMinutes
-		dayin := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
-		dayout := time.Date(now.Year(), now.Month(), now.Day()+1, m.Friday.StartHour, m.Friday.StartMinutes, 0, 0, loc)
-		durationNext = dayout.Sub(dayin)
+		dayin := time.Date(now.Year(), now.Month(), now.Day(), startHour, startMin, 0, 0, loc)
+		dayout := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
+		nextDay := time.Date(now.Year(), now.Month(), now.Day()+1, m.Friday.StartHour, m.Friday.StartMinutes, 0, 0, loc)
+		eTime1 = dayin.Sub(now)
+		eTime2 = dayout.Sub(now)
+		eTime3 = nextDay.Sub(now)
+		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime2
+		}
+		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
+			durationNext = eTime3
+		}
 	case time.Friday:
 		startHour = m.Friday.StartHour
 		startMin = m.Friday.StartMinutes
 		endHour = m.Friday.EndHour
 		endMinutes = m.Friday.EndMinutes
-		dayin := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
-		dayout := time.Date(now.Year(), now.Month(), now.Day()+1, m.Saturday.StartHour, m.Saturday.StartMinutes, 0, 0, loc)
-		durationNext = dayout.Sub(dayin)
+		dayin := time.Date(now.Year(), now.Month(), now.Day(), startHour, startMin, 0, 0, loc)
+		dayout := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
+		nextDay := time.Date(now.Year(), now.Month(), now.Day()+1, m.Saturday.StartHour, m.Saturday.StartMinutes, 0, 0, loc)
+		eTime1 = dayin.Sub(now)
+		eTime2 = dayout.Sub(now)
+		eTime3 = nextDay.Sub(now)
+		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime2
+		}
+		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
+			durationNext = eTime3
+		}
 	case time.Saturday:
 		startHour = m.Saturday.StartHour
 		startMin = m.Saturday.StartMinutes
 		endHour = m.Saturday.EndHour
 		endMinutes = m.Saturday.EndMinutes
-		dayin := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
-		dayout := time.Date(now.Year(), now.Month(), now.Day()+1, m.Sunday.StartHour, m.Sunday.StartMinutes, 0, 0, loc)
-		durationNext = dayout.Sub(dayin)
+		dayin := time.Date(now.Year(), now.Month(), now.Day(), startHour, startMin, 0, 0, loc)
+		dayout := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
+		nextDay := time.Date(now.Year(), now.Month(), now.Day()+1, m.Sunday.StartHour, m.Sunday.StartMinutes, 0, 0, loc)
+		eTime1 = dayin.Sub(now)
+		eTime2 = dayout.Sub(now)
+		eTime3 = nextDay.Sub(now)
+		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime2
+		}
+		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
+			durationNext = eTime3
+		}
 	case time.Sunday:
 		startHour = m.Sunday.StartHour
 		startMin = m.Sunday.StartMinutes
 		endHour = m.Sunday.EndHour
 		endMinutes = m.Sunday.EndMinutes
-		dayin := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
-		dayout := time.Date(now.Year(), now.Month(), now.Day()+1, m.Monday.StartHour, m.Monday.StartMinutes, 0, 0, loc)
-		durationNext = dayout.Sub(dayin)
+		dayin := time.Date(now.Year(), now.Month(), now.Day(), startHour, startMin, 0, 0, loc)
+		dayout := time.Date(now.Year(), now.Month(), now.Day(), endHour, endMinutes, 0, 0, loc)
+		nextDay := time.Date(now.Year(), now.Month(), now.Day()+1, m.Monday.StartHour, m.Monday.StartMinutes, 0, 0, loc)
+		eTime1 = dayin.Sub(now)
+		eTime2 = dayout.Sub(now)
+		eTime3 = nextDay.Sub(now)
+		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime1
+		}
+		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
+			durationNext = eTime2
+		}
+		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
+			durationNext = eTime3
+		}
 	}
 
-	mins = false
+	/* mins = false
 	hours = false
 
 	compAMin = now.Minute()
@@ -204,19 +292,28 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 	e := time.Date(now.Year(), now.Month(), nday, compBHour, compBMin, 0, 0, loc)
 
 	duration := e.Sub(s)
-	return duration
+	return duration */
+
+	return durationNext
 }
 
 func time2String(newtime time.Time) string {
-	var fecha = ""
+	var (
+		fecha = ""
+		mes   = ""
+	)
 
-	mes := int(newtime.Month())
+	mes = strconv.Itoa(int(newtime.Month()))
+	if len(mes) == 1 {
+		mes = "0" + mes
+	}
+
 	day := strconv.Itoa(newtime.Day())
 
 	if len(day) > 1 {
-		fecha = strconv.Itoa(newtime.Year()) + strconv.Itoa(mes) + day
+		fecha = strconv.Itoa(newtime.Year()) + mes + day
 	} else {
-		fecha = strconv.Itoa(newtime.Year()) + strconv.Itoa(mes) + "0" + day
+		fecha = strconv.Itoa(newtime.Year()) + mes + "0" + day
 	}
 	return fecha
 }

@@ -1,1 +1,0 @@
-./dcm4che5d13d2/bin/ianscp -b IANSCP:11123  --directory=/Users/joseferrer/Documents/Golang_works/ResoMigration/IANSCP/results
