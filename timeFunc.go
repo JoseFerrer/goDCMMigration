@@ -112,6 +112,7 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 
 	loc, _ := time.LoadLocation("America/Lima")
 	now := time.Now().In(loc)
+	fmt.Println("Time now: ", now)
 	switch now.Weekday() {
 	case time.Monday:
 		startHour = m.Monday.StartHour
@@ -166,12 +167,15 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 		eTime3 = nextDay.Sub(now)
 		if eTime1 > 0 && eTime2 > 0 && eTime3 > 0 {
 			durationNext = eTime1
+			fmt.Println("Ingreso antes del tiempo")
 		}
 		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
-			durationNext = eTime2
+			durationNext = -eTime2
+			fmt.Println("Ingreso durante el tiempo")
 		}
 		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
 			durationNext = eTime3
+			fmt.Println("Ingreso despues del tiempo")
 		}
 	case time.Thursday:
 		startHour = m.Thursday.StartHour
@@ -188,7 +192,7 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 			durationNext = eTime1
 		}
 		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
-			durationNext = eTime2
+			durationNext = -eTime2
 		}
 		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
 			durationNext = eTime3
@@ -208,7 +212,7 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 			durationNext = eTime1
 		}
 		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
-			durationNext = eTime2
+			durationNext = -eTime2
 		}
 		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
 			durationNext = eTime3
@@ -228,7 +232,7 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 			durationNext = eTime1
 		}
 		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
-			durationNext = eTime2
+			durationNext = -eTime2
 		}
 		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
 			durationNext = eTime3
@@ -248,7 +252,7 @@ func (m *ConfigJSON) getDuration(state string) (etime time.Duration) {
 			durationNext = eTime1
 		}
 		if eTime1 < 0 && eTime2 > 0 && eTime3 > 0 {
-			durationNext = eTime2
+			durationNext = -eTime2
 		}
 		if eTime1 < 0 && eTime2 < 0 && eTime3 > 0 {
 			durationNext = eTime3
