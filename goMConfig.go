@@ -71,7 +71,7 @@ func (o *ComQuery) getCommands(confFind ConfigJSON, value string) string {
 		ejecutable = "./dcm4che5d13d2/bin/findscu "
 	case "T":
 		ejecutable = "./dcm4che5d13d2/bin/movescu "
-	case "A":
+	case "Q":
 		ejecutable = "./dcm4che5d13d2/bin/findscu "
 	}
 
@@ -104,7 +104,7 @@ func (o *ComQuery) getCommands(confFind ConfigJSON, value string) string {
 	case "T":
 		ConfOpt = "-m " + o.Tag + "=" + value
 		modOpt = " --dest " + confFind.BackUpTitle
-	case "A":
+	case "Q":
 		// Search by Accession Number
 		ConfOpt = "-m " + o.Tag + "=" + o.TagValue
 		modOpt = ""

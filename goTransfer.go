@@ -33,7 +33,7 @@ func transferQuery(conf ConfigJSON, sess *mgo.Session, str string) {
 	dbSize, _ := col.Count()
 
 	// Collection TPROCESS
-	colT := session.DB(DATABASE).C(TCOLLECTIOM)
+	colT := session.DB(DATABASE).C(TCOLLECTION)
 	tdbSize, _ := colT.Count()
 	fmt.Printf("Size of transfer %d /n", tdbSize)
 
@@ -45,9 +45,6 @@ func transferQuery(conf ConfigJSON, sess *mgo.Session, str string) {
 		countIn++
 		initialI++
 	}
-
-	//fmt.Println("The size of studies to move are ", dbSize, ".")
-	//logFunction("Transfer: The size of studies to move are " + strconv.Itoa(dbSize))
 
 	fmt.Println("The last id is: ", initialI, ".")
 	logFunction("Transfer: The last  " + strconv.Itoa(initialI))
@@ -77,7 +74,7 @@ func transferQuery(conf ConfigJSON, sess *mgo.Session, str string) {
 
 			query = queryDCM(command)
 			fmt.Println(query)
-			colTrans := session.DB(DATABASE).C(TCOLLECTIOM)
+			colTrans := session.DB(DATABASE).C(TCOLLECTION)
 			TransData := Moved{
 				ID:               strconv.Itoa(countIn),
 				IDH:              fromHarvest.ID,
