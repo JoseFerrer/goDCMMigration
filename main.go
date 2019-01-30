@@ -22,7 +22,7 @@ const (
 func main() {
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Choose the process to run (H - Only Harvest, T - Only Transfer, A - Analyse, HT - Harvest/Transfer, HTA - Harvest/Transfer/Analyse)")
+	fmt.Print("Choose the process to run (H - Only Harvest, T - Only Transfer, A - Analyse, HT - Harvest/Transfer, HTA - Harvest/Transfer/Analyse): ")
 	text, _ := reader.ReadString('\n')
 	lenStr := len(text) - 1
 	text = text[0:lenStr]

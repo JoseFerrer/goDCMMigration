@@ -106,6 +106,7 @@ func qualityQuery(confFind ConfigJSON, ses *mgo.Session, str string) {
 	// Collection TCOLLECTION
 	col := session.DB(DATABASE).C(TCOLLECTION)
 	dbSize, _ := col.Count()
+	fmt.Println("The number of studies to verify are : ", dbSize)
 
 	var trData Moved
 	// Collection
@@ -114,9 +115,11 @@ func qualityQuery(confFind ConfigJSON, ses *mgo.Session, str string) {
 		sleepFunc(confFind, str)
 		col.Find(bson.M{"id": i}).One(&trData)
 		aNumber := trData.AccNum
-		c := ComQuery{"Q", "", "", "StudyDate", aNumber}
+		c := ComQuery{"Q", "", "", "00080050", aNumber}
 		command = c.getCommands(confFind, "")
 		fmt.Println(command)
+		return
+
 		qr := queryDCM(command)
 		if !(strings.Contains(qr, "status=ff00H")) {
 			fmt.Println("Study with Accession Number: " + aNumber + " not found in Back Up")
